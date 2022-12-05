@@ -1,5 +1,7 @@
 FROM php:7.4
 
+ARG COMPOSER_ALLOW_SUPERUSER=1
+
 # Install dependencies
 RUN apt-get update && apt-get install -y \
     build-essential \
@@ -20,13 +22,9 @@ RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local
 RUN docker-php-ext-install pdo_mysql  gd calendar 
 RUN docker-php-ext-configure calendar
 
-
-WORKDIR /app
-
-COPY . /app
+WORKDIR /var/www
+COPY . /var/www
 RUN composer install
-RUN  php artisan key:generate
-
 
 CMD php artisan serve --host=0.0.0.0 --port=8181
 
