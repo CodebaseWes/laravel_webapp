@@ -19,9 +19,14 @@ RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local
 
 RUN docker-php-ext-install pdo_mysql  gd calendar 
 RUN docker-php-ext-configure calendar
+
+
 WORKDIR /app
+
 COPY . /app
 RUN composer install
+RUN  php artisan key:generate
+
 
 CMD php artisan serve --host=0.0.0.0 --port=8181
 
