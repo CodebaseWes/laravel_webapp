@@ -27,8 +27,8 @@ services:
     restart: unless-stopped
     tty: true
     environment:
-      MYSQL_DATABASE: app
-      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: ${DB_DATABASE}
+      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
       SERVICE_TAGS: dev
       SERVICE_NAME: mysql
     volumes:
@@ -44,8 +44,8 @@ services:
     links:
       - db:db
     environment:
-      PMA_USER: root
-      PMA_PASSWORD : root
+      PMA_USER: ${DB_USERNAME}
+      PMA_PASSWORD : ${DB_PASSWORD}
       PMA_PORT: 3306
     networks:
       - app-network
