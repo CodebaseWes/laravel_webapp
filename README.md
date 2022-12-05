@@ -10,7 +10,11 @@ Download the repository onto your machine:
 
 `git clone https://github.com/CodebaseWes/laravel_webapp.git`
 
-If Docker Desktop is not installed on your machine, please install it from this [link](https://www.docker.com/products/docker-desktop/). Docker is a useful deploymentt tool that ensures that apps can be run successfully anywhere. Apps can run in containers which are similar to virtual machines. The app and its dependencies are installed onto a container, which can be run independent of the base architecture and configuration of the machine in which it is executed. Once Docker desktop is installed, `cd` into the app directory and run the following command:
+Navigate to the project directory:
+
+`cd laravel_webapp`
+
+If Docker Desktop is not installed on your machine, please install it from this [link](https://www.docker.com/products/docker-desktop/). Docker is a useful deploymentt tool that ensures that apps can be run successfully anywhere. Apps can run in containers which are similar to virtual machines. The app and its dependencies are installed onto a container, which can be run independent of the base architecture and configuration of the machine in which it is executed. Once Docker desktop is installed, execute the following command:
 
 `docker compose up --build`
 
