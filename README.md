@@ -24,9 +24,11 @@ This builds the Docker image of the project and launches a container. Within thi
 - A MySQL Database Server
 - PHPMyAdmin 
 
-It may take several minutes to build and run the containers the first time this command is executed. Subsequent builds will be faster due to caching.
+It may take a while to build and run the containers the first time this command is executed. Subsequent builds will be faster due to caching.
 
-Once the container is up and running. Navigate to http://localhost in your browser. The application will display an error indicating that a table has not been found. To fix the issue, seed the database by clicking the "Run Migrations" button displayed on the page. You will not need to do this for every build as data will be persisted in a docker volume.
+Once the container is up and running and no new logs are being printed to the console, navigate to http://localhost in your browser. The application will display an error indicating that a table has not been found. To fix the issue, seed the database by clicking the "Run Migrations" button displayed on the page.  You will not need to do this for every build as data will be persisted in a docker volume.
+
+If instead you see a "connection refused error", the database is starting. Wait a few seconds and refresh the page.
 
 ![Illustration of Button](https://github.com/CodebaseWes/laravel_webapp/blob/master/seed_database_illustration.png?raw=true)
 
