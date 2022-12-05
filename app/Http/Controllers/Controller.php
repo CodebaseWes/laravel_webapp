@@ -16,8 +16,13 @@ class Controller extends BaseController
 
     public function index(Request $request) {
 
+        /* Define a data to serve as the start date to calculate
+        the shipping date. Default is the current date. */
         $buyDate =  date("Y-m-d", time());
         $invalid_date = false;
+
+        /* Allow the user to post a custom date. This can be anything that
+        is allowed by the strtotime function */
         if (array_key_exists("date", $request->all())) {
             $date = $request->all()["date"];
             if(strtotime($date)) {
@@ -47,16 +52,22 @@ class Controller extends BaseController
             $prod_arr["shipDate"] = $shipDate;
             array_push($disp_prods, $prod_arr);
         }
+
         return view('welcome', ["products" => $disp_prods, "date" => $buyDate, "invalid_date" => $invalid_date]);
     }
 
-    public function getHolidays(int $mfr, int $year) {
+    /* Each product has a manufacturer (mfr). This manufacturer has holidays during which
+    their products are not shipped. Select these holidays from the database, parse and parse them into dates.*/
+    public function getHolidays(int $mfr, int $year): array {
         $holidays = DB::select("SELECT h.* FROM Manufacturers_Holidays mf
             JOIN Holidays h ON h.id = mf.holiday_id 
             WHERE mf.mfr_id = ?",
         [$mfr]);
 
         $holiday_dates = [];
+        /* Calculate holiday's for the upcoming year. Hopefully, shipping companies have their act together
+        and can ship their products within a year. Otherwise, the calculation may be a little off. If a customer 
+        can wait a year, then surely they can wait a few extra days :/  */
         foreach ([$year, $year+1] as $year) {
             foreach ($holidays as $key => $holiday) {
                 if ($holiday->name  == "Easter") {
