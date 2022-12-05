@@ -1,64 +1,47 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400"></a></p>
+##  E-Commerce Shipping Challenge
 
-<p align="center">
-<a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+This is a simple web application that calculates shipping dates for arbitrary products. Data associated with these products is stored in a MySQL database. The main focus of this project is to calculate when a product is to be shipped. This is determined by when the product was ordered, whether or not the product ships on weekends, and what holidays are observed by the product manufacturer (Mfr). 
 
-## About Laravel
+When the app is running, a list of products is displayed. Included for each product is its name, quantity, whether it ships on weekends, the max shipping days and the ship date. A user may change the order date to be any valid date that they wish. By default, the Manufacturer ID is 1 for all products. This essentially means that holidays are not used in the calculation of the ship date. If a product has Manufacturer ID 2, then the product will not ship on federal holidays. New Manufacturers (Mfr's) and associated holidays can be added to configure what days to exclude from shipping certain products. The tables associated with this are Holidays, Manufacturers and Manufacturers_Holidays. Data manipulation may be done using PHPMyAdmin.
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+## Setup
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+Download the repository onto your machine:
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+`git clone https://github.com/CodebaseWes/laravel_webapp.git`
 
-## Learning Laravel
+Navigate to the project directory:
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+`cd laravel_webapp`
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 1500 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+If Docker Desktop is not installed on your machine, please install it from this [link](https://www.docker.com/products/docker-desktop/). Docker is a useful deployment tool that ensures that apps can be run successfully anywhere. Apps can run in containers which are similar to virtual machines. The app and its dependencies are installed onto a container, which can be run independent of the base architecture and configuration of the machine in which it is executed. Once Docker desktop is installed, execute the following command:
 
-## Laravel Sponsors
+`docker compose up --build`
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
+This builds the Docker image of the project and launches a container. Within this container are three sub-containers. 
 
-### Premium Partners
+- The Laravel App 
+- A MySQL Database Server
+- PHPMyAdmin 
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[OP.GG](https://op.gg)**
-- **[WebReinvent](https://webreinvent.com/?utm_source=laravel&utm_medium=github&utm_campaign=patreon-sponsors)**
-- **[Lendio](https://lendio.com)**
+It may take several minutes to build and run the containers the first time this command is executed. Subsequent builds will be faster due to caching.
 
-## Contributing
+Once the container is up and running. Navigate to http://localhost in your browser. The application will display an error indicating that a table has not been found. To fix the issue, seed the database by clicking the "Run Migrations" button displayed on the page. You will not need to do this for every build as data will be persisted in a docker volume.
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+![Illustration of Button](https://github.com/CodebaseWes/laravel_webapp/blob/master/seed_database_illustration.png?raw=true)
 
-## Code of Conduct
+After refreshing the page, you should be good to go!
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+To work with the database, navigate to PHPMyAdmin located at http://localhost:7000 . No username or password is necessary; you should be logged into the database already.
 
-## Security Vulnerabilities
+## Alternative Setup
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+If running this as a Docker container is not convenient, you may run this project on a machine that has PHP and MySQL support. I cannot guarantee this will work because the app has specific dependency requirements. To see what those requirements are, see the [Dockerfile](https://github.com/CodebaseWes/laravel_webapp/blob/master/Dockerfile). Also, be sure to update the environment variables in `.env` to point to your database server. It is typically not good practive to commit this file, but for convenience and because this is a toy app, it is included in the repository. In addition, import [app.sql](https://github.com/CodebaseWes/laravel_webapp/blob/master/app.sql) into your database. 
 
-## License
+Assuming that all the dependencies have been installed, you may run the app by executing the following commands:
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+`composer install`
+
+`php artisan serve`
+
+Navigate to http://localhost:8000 to view the application.
