@@ -38,9 +38,9 @@ To work with the database, navigate to PHPMyAdmin located at http://localhost:70
 
 ## Alternative Setup
 
-If running this as a Docker container is not convenient, you may run this project on a machine that has PHP and MySQL support. I cannot guarantee this will work because the app has specific dependency requirements. To see what those requirements are, see the [Dockerfile](https://github.com/CodebaseWes/laravel_webapp/blob/master/Dockerfile). Also, be sure to update the environment variables in `.env` to point to your database server. It is typically not good practive to commit this file, but for convenience and because this is a toy app, it is included in the repository. In addition, import [app.sql](https://github.com/CodebaseWes/laravel_webapp/blob/master/app.sql) into your database. 
+If running this as a Docker container is not convenient, this project can be deployed onto a machine that has PHP, Composer and MySQL installed. I cannot guarantee this will work because the app has specific dependency requirements. To see what those requirements are, see the [Dockerfile](https://github.com/CodebaseWes/laravel_webapp/blob/master/Dockerfile). Also, be sure to update the environment variables in `.env` to point to your database server. It is typically not good practice to commit this file, but for convenience and because this is a toy app, it is included in the repository. In addition, import [app.sql](https://github.com/CodebaseWes/laravel_webapp/blob/master/app.sql) into your database. 
 
-Assuming that all the dependencies have been installed, you may run the app by executing the following commands:
+Assuming that all the dependencies have been installed, run the app by executing the following commands:
 
 `composer install`
 
